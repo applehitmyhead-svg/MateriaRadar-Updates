@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MateriaRadar stable update channel",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "channel",
+    "product",
+    "version",
+    "release_tag",
+    "build",
+    "assets"
+  ],
+  "properties": {
+    "manifest_version": {
+      "const": 1
+    },
+    "channel": {
+      "const": "stable"
+    },
+    "product": {
+      "const": "MateriaRadar"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "release_tag": {
+      "type": "string"
+    },
+    "build": {
+      "type": "object",
+      "required": [
+        "version",
+        "build_id",
+        "built_utc",
+        "source_sha256",
+        "configuration_sha256",
+        "seed_id"
+      ]
+    },
+    "assets": {
+      "type": "object",
+      "required": [
+        "windows-x64"
+      ],
+      "properties": {
+        "windows-x64": {
+          "$ref": "#/$defs/asset"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "required": [
+        "name",
+        "size",
+        "sha256",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483648
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}
